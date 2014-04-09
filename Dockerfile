@@ -14,10 +14,7 @@ RUN yum -y install wget unzip java-1.7.0-openjdk-devel postgresql-server
 RUN su -l postgres -c "/usr/bin/initdb --pgdata='/var/lib/pgsql/data' --auth='ident'" \  >> "/var/lib/pgsql/initdb.log" 2>&1 < /dev/null
 
 # Edit postgres config 
-RUN  sed 's/ident/trust/'  /var/lib/pgsql/data/pg_hba.conf > pg_hba.conf
-
-# Replace old properties file with the new one
-RUN cp -u pg_hba.conf /var/lib/pgsql/data/pg_hba.conf
+RUN  sed -i 's/ident/trust/'  /var/lib/pgsql/data/pg_hba.conf
 
 # Start postgres service, create rhqadmin role and rhq db
 RUN \
