@@ -8,7 +8,7 @@ ENV RHQ_VERSION 4.11.0-SNAPSHOT
 
 # install missing commands
 #RUN yum -y update --skip-broken
-RUN yum -y install wget unzip expect spawn java-1.7.0-openjdk-devel postgresql-server
+RUN yum -y install wget unzip java-1.7.0-openjdk-devel postgresql-server
 
 # Init postgres service
 RUN su -l postgres -c "/usr/bin/initdb --pgdata='/var/lib/pgsql/data' --auth='ident'" \  >> "/var/lib/pgsql/initdb.log" 2>&1 < /dev/null
@@ -20,8 +20,9 @@ RUN  sed 's/ident/trust/'  /var/lib/pgsql/data/pg_hba.conf > pg_hba.conf
 RUN cp -u pg_hba.conf /var/lib/pgsql/data/pg_hba.conf
 
 # Start postgres service, create rhqadmin role and rhq db
-RUN expect -c ' spawn su -l postgres -c " pg_ctl start " ; expect -re   "pg_log" {send \"\r\"; exp_continue } }';\
- ps -aux; expect -c ' spawn createuser -h 127.0.0.1 -p 5432 -U postgres -S -D -R -P  rhqadmin;    expect -re "Enter"  { send \"\r\"; exp_continue }  "Enter" { send \"\r\"; exp_continue } ';\
+RUN \
+ su -l postgres -c " pg_ctl -l server.log -w stop; pg_ctl -l server.log -w start; ";\
+ createuser -h 127.0.0.1 -p 5432 -U postgres -S -D -R -w rhqadmin;\
  createdb -h 127.0.0.1 -p 5432 -U postgres -O rhqadmin rhq;
 
 
@@ -43,7 +44,8 @@ RUN java -version; ls -l /etc/alternatives/java; rpm -qa | grep openjdk
 EXPOSE 7080
 WORKDIR ./opt/rhq-server-${RHQ_VERSION}/bin
 
-ENTRYPOINT expect -c ' spawn su -l postgres -c " pg_ctl restart -m fast " ; expect -re   "pg_log" {send \"\r\"; exp_continue } }' ;\
-su root -c '/opt/rhq-server-${RHQ_VERSION}/bin/rhqctl install  --agent-preference="127.0.0.1"';\
-su root -c '/opt/rhq-server-${RHQ_VERSION}/bin/rhqctl start';\
-/bin/bash
+ENTRYPOINT \
+  su -l postgres -c " pg_ctl -l server.log -w stop; pg_ctl -l server.log -w start; ";\
+  su root -c '/opt/rhq-server-${RHQ_VERSION}/bin/rhqctl install  --agent-preference="127.0.0.1"';\
+  su root -c '/opt/rhq-server-${RHQ_VERSION}/bin/rhqctl start';\
+  /bin/bash

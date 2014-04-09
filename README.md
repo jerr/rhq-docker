@@ -23,3 +23,7 @@ cd rhq-docker/
 ./run.sh
 ```
 
+## USEFUL
+cleanup all containers (really all of them)
+`for cid in $(docker ps -a | tail -1 | awk '{print $1}'); do docker stop $cid; docker rm $cid; done`
+
