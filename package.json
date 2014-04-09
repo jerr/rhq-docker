@@ -1,0 +1,7 @@
+{
+  "name": "rhq-fedora.20",
+  "private": true,
+  "version": "4.11.0-SNAPSHOT",
+  "description": "RHQ 4.11 on Fedora 20 using docker.",
+  "author": "Garik Khachikyan <gkhachik@redhat.com>"
+}
