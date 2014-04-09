@@ -12,4 +12,12 @@ cd rhq-docker/
 ./build.sh
 ./run.sh
 ```
+### Fedora 20+
+yum -y install wget curl git docker-io
+systemctl start docker
+systemctl enable docker
+git clone https://github.com/gkhachik/rhq-docker.git
+cd rhq-docker/
+./build.sh
+./run.sh
 
