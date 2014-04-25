@@ -25,7 +25,7 @@ RUN \
 
 # Download rhq-server-4.11.0.zip from sourceforge
 ## TODO ## RUN wget -q http://sourceforge.net/projects/rhq/files/rhq/rhq-4.10/rhq-server-4.10.0.zip -O /opt/rhq-server-4.10.0.zip 2>&1 >/dev/null
-RUN wget -q http://freefr.dl.sourceforge.net/project/rhqbuild/rhq/rhq-${RHQ_VERSION}/rhq-server-${RHQ_VERSION}.zip -O /opt/rhq-server-${RHQ_VERSION}.zip 2>&1 >/dev/null
+RUN wget -q http://sourceforge.net/projects/rhqbuild/files/rhq/rhq-${RHQ_VERSION}/rhq-server-${RHQ_VERSION}.zip -O /opt/rhq-server-${RHQ_VERSION}.zip 2>&1 >/dev/null
 
 # Unzip rhq-server-4.11.0.zip
 RUN unzip /opt/rhq-server-${RHQ_VERSION}.zip -d /opt 2>&1 >/dev/null
