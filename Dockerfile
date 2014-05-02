@@ -22,9 +22,9 @@ RUN \
 RUN \
   wget -q http://sourceforge.net/projects/rhqbuild/files/rhq/rhq-${RHQ_VERSION}/rhq-server-${RHQ_VERSION}.zip -O /opt/rhq-server-${RHQ_VERSION}.zip 2>&1 >/dev/null;\
   unzip /opt/rhq-server-${RHQ_VERSION}.zip -d /opt 2>&1 >/dev/null;\
-  sed -i 's/^rhq.server.management.password=/rhq.server.management.password=35c160c1f841a889d4cda53f0bfc94b6/g' /opt/rhq-server-${RHQ_VERSION}/bin/rhq-server.properties;\
-  sed -i 's/^jboss.bind.address=*/jboss.bind.address=0.0.0.0/g' /opt/rhq-server-${RHQ_VERSION}/bin/rhq-server.properties;\
-  sed -i 's/^rhq.storage.nodes=/rhq.storage.nodes=127.0.0.1/g' /opt/rhq-server-${RHQ_VERSION}/bin/rhq-server.properties
+  sed -i 's/^rhq.server.management.password=.*/rhq.server.management.password=35c160c1f841a889d4cda53f0bfc94b6/g' /opt/rhq-server-${RHQ_VERSION}/bin/rhq-server.properties;\
+  sed -i 's/^jboss.bind.address=.*/jboss.bind.address=0.0.0.0/g' /opt/rhq-server-${RHQ_VERSION}/bin/rhq-server.properties;\
+  sed -i 's/^rhq.storage.nodes=.*/rhq.storage.nodes=127.0.0.1/g' /opt/rhq-server-${RHQ_VERSION}/bin/rhq-server.properties
 
 ENV RHQ_SERVER_JAVA_EXE_FILE_PATH /usr/bin/java
 
