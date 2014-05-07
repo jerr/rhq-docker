@@ -1,9 +1,7 @@
-
-# stop the old container (if any)
 source env.properties
-cointainer_id="cid-rhq-fedora.20:${DOCKER_TAG}"
+cointainer_id="cid-rhq:${DOCKER_TAG}"
 if test -f ./$cointainer_id; then
-  sudo docker stop $(cat ./${cointainer_id})
+  sudo docker kill $(cat ./${cointainer_id})
   sudo docker rm $(cat ./${cointainer_id})
 fi
 rm -f ./$cointainer_id

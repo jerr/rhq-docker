@@ -4,7 +4,7 @@ FROM fedora:20
 
 MAINTAINER Garik Khachikyan <gkhachik@redhat.com>
 
-ENV RHQ_VERSION 4.11.0-SNAPSHOT
+ENV RHQ_VERSION 4.12.0-SNAPSHOT
 
 # install missing commands
 RUN yum -y install wget unzip java-1.7.0-openjdk-devel postgresql-server
@@ -18,7 +18,7 @@ RUN \
   createdb -h 127.0.0.1 -p 5432 -U postgres -O rhqadmin rhq
   
 
-# Download rhq-server-4.11.0.zip from sourceforge; unzip & tune jboss.bind.address
+# Download rhq-server-${RHQ_VERSION}.zip from sourceforge; unzip & tune jboss.bind.address
 RUN \
   wget -q http://sourceforge.net/projects/rhqbuild/files/rhq/rhq-${RHQ_VERSION}/rhq-server-${RHQ_VERSION}.zip -O /opt/rhq-server-${RHQ_VERSION}.zip 2>&1 >/dev/null;\
   unzip /opt/rhq-server-${RHQ_VERSION}.zip -d /opt 2>&1 >/dev/null;\
