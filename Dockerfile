@@ -4,7 +4,7 @@ FROM fedora:20
 
 MAINTAINER Garik Khachikyan <gkhachik@redhat.com>
 
-ENV RHQ_VERSION 4.12.0-SNAPSHOT
+ENV RHQ_VERSION 4.11.0
 
 # install missing commands
 RUN yum -y install wget unzip java-1.7.0-openjdk-devel postgresql-server
